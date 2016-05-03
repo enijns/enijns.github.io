@@ -105,7 +105,18 @@ var Scripty = {
 
         var self = this;
         window.ondevicemotion = function (e) {
-            console.log('mooooove');
+            var acceleration = 0;
+
+            if (window.orientation === 90 || window.orientation === -90) {
+                acceleration = e.accelerationIncludingGravity.y;
+            } else {
+                acceleration = e.accelerationIncludingGravity.x;
+            }
+
+            if (acceleration < self.accelerationTreshold && acceleration > (self.accelerationTreshold * -1))
+                self.moveBot(document.getElementById('robot').offsetLeft - (acceleration * self.velocity));
+
+                console.log(acceleration);
         }
     },
     moveBot: function (direction) {
