@@ -108,7 +108,7 @@ var Scripty = {
             var acceleration = 0;
 
             if (window.orientation === 90 || window.orientation === -90) {
-                acceleration = e.accelerationIncludingGravity.y;
+                acceleration = -1 * e.accelerationIncludingGravity.y;
             } else {
                 acceleration = e.accelerationIncludingGravity.x;
             }
