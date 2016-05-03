@@ -3,6 +3,7 @@
  */
 
 var clickOrTap = 'click';
+var twang = new Audio('assets/audio/twang.mp3');
 
 var Scripty = {
     online : true,
@@ -51,7 +52,17 @@ var Scripty = {
 
     },
     animateAntenna: function(e){
-        $('#antenna').css('animate-antenna');
+        var animationEvent = MiniModernizr.whichAnimationEvent();
+        var deAntenne = $('#antenna');
+        deAntenne.one(animationEvent,function () {
+            deAntenne.removeClass('animate-antenna');
+        });
+        deAntenne.addClass('animate-antenna');
+        twang.play();
+
+        if(navigator.vibrate) {
+            navigator.vibrate([100, 100, 1000]);
+        }
 
 
     },
