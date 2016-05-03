@@ -6,18 +6,24 @@ var clickOrTap = 'click';
 var twang = new Audio('assets/audio/twang.mp3');
 
 var Scripty = {
-    online : true,
+    online: true,
     accelerationTreshold: 4,
     velocity: 20,
-    init: function(){
+    init: function () {
         var self = this;
 
         /* event to error message */
-        $('#errors a').on('click',function(e){e.preventDefault(); $(this).parent().hide(); localStorage.setItem('noerrors',1)});
+        $('#errors a').on('click', function (e) {
+            e.preventDefault();
+            $(this).parent().hide();
+            localStorage.setItem('noerrors', 1)
+        });
 
         /* Vibration API */
         //don't use click on mobile: it will have a short delay...
-        $('#antenna').on(clickOrTap, function(e) { self.animateAntenna(self, e); });
+        $('#antenna').on(clickOrTap, function (e) {
+            self.animateAntenna(self, e);
+        });
 
         /* Battery status API*/
 
@@ -41,62 +47,60 @@ var Scripty = {
 
     },
 
-    uploadImage: function(e){
+    uploadImage: function (e) {
 
     },
-    writeToCanvas: function(picture){
+    writeToCanvas: function (picture) {
 
     },
-    showBatteryCharge: function(battery){
+    showBatteryCharge: function (battery) {
 
 
     },
-    animateAntenna: function(e){
+    animateAntenna: function (e) {
         var animationEvent = MiniModernizr.whichAnimationEvent();
         var deAntenne = $('#antenna');
-        deAntenne.one(animationEvent,function () {
+        deAntenne.one(animationEvent, function () {
             deAntenne.removeClass('animate-antenna');
         });
         deAntenne.addClass('animate-antenna');
         twang.play();
 
-        if(navigator.vibrate) {
+        if (navigator.vibrate) {
             navigator.vibrate([100, 100, 1000]);
         }
-
+    },
+    animateArmsRight: function () {
+        //var addClass('animate-arms-left')
+    },
+    animateArmsLeft: function () {
 
     },
-    animateArmsRight: function(){
+    activateAccelerationMode: function (e) {
 
     },
-    animateArmsLeft: function(){
-
-    },
-    activateAccelerationMode: function(e){
-
-    },
-    moveBot: function(direction){
+    moveBot: function (direction) {
 
         var robotWidth = document.getElementById('robot').offsetWidth;
         var areaWidth = $('main').width(); // zepto normalises offsetwidth, width, e.a. to "real" width
         // Fix for zepto being a pain in IOS 8
-        if(areaWidth === 0){
-            areaWidth =   (window.innerWidth > 0) ? window.innerWidth : screen.width;
+        if (areaWidth === 0) {
+            areaWidth = (window.innerWidth > 0) ? window.innerWidth : screen.width;
         }
 
         /* screen width is useless due to retina screens */
 
-        if((direction > robotWidth/2) && (direction < (areaWidth -  robotWidth / 2))){
-            $('#robot').css('left',direction+'px');
+        if ((direction > robotWidth / 2) && (direction < (areaWidth - robotWidth / 2))) {
+            $('#robot').css('left', direction + 'px');
             $('#wheels img').addClass('animate-wheels');
         }
 
 
     },
-    showErrors: function(errorid){
-        if(localStorage.getItem('noerrors') != 1){
+    showErrors: function (errorid) {
+        if (localStorage.getItem('noerrors') != 1) {
             //  $('#errors').show().find('#'+errorid).show(); -> doesn't work on zepto on IOS 6
-            $('#errors').css('display','block').find('#'+errorid).css('display','block');
+            $('#errors').css('display', 'block').find('#' + errorid).css('display', 'block');
         }
 
     }
@@ -105,14 +109,14 @@ var Scripty = {
 
 CanvasWriter = {
     maxWidth: 80,
-    writeImage: function(img,canvasid){
+    writeImage: function (img, canvasid) {
         var canvas = document.getElementById(canvasid);
         var context = canvas.getContext('2d');
 
         // Clear the canvas
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        if(img.width > this.maxWidth) {
+        if (img.width > this.maxWidth) {
             img.height *= this.maxWidth / img.width;
             img.width = this.maxWidth;
         }
@@ -126,19 +130,19 @@ CanvasWriter = {
 };
 
 MiniModernizr = {
-     whichAnimationEvent: function(){
+    whichAnimationEvent: function () {
         var a,
             el = document.createElement("fakeelement");
 
         var animations = {
-            "animation"      : "animationend",
-            "OAnimation"     : "oAnimationEnd",
-            "MozAnimation"   : "animationend",
+            "animation": "animationend",
+            "OAnimation": "oAnimationEnd",
+            "MozAnimation": "animationend",
             "WebkitAnimation": "webkitAnimationEnd"
         };
 
-        for (a in animations){
-            if (el.style[a] !== undefined){
+        for (a in animations) {
+            if (el.style[a] !== undefined) {
                 return animations[a];
             }
         }
@@ -146,9 +150,9 @@ MiniModernizr = {
 };
 
 
-Zepto(function($){
+Zepto(function ($) {
 
-   Scripty.init();
+    Scripty.init();
 
 });
 
