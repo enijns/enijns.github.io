@@ -1,0 +1,25 @@
+CACHE MANIFEST
+
+CACHE:
+index.html
+assets/css/reset.css
+assets/css/screen.css
+assets/js/detect.js
+assets/js/gesture.js
+assets/js/script.js
+assets/js/touch.js
+assets/js/zepto.min.js
+
+images/antenna.svg
+images/arm.svg
+images/body.svg
+images/bubble.svg
+images/display.svg
+images/eye.svg
+images/foot.svg
+images/half-battery.svg
+images/head.svg
+images/wheel.svg
+
+NETWORK:
+*
