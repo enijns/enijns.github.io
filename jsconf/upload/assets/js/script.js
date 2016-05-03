@@ -29,6 +29,9 @@ var Scripty = {
 
 
         /* Swipe */
+        //zepto has swipe and pinch
+        $('body').on('swipeLeft', self.animateArmsRight);
+        $('body').on('swipeRight', self.animateArmsLeft);
 
 
         /* Image upload */
@@ -71,10 +74,10 @@ var Scripty = {
         }
     },
     animateArmsRight: function () {
-        //var addClass('animate-arms-left')
+        $('#arm-left,#arm-right').addClass('animate-arms-left');
     },
     animateArmsLeft: function () {
-
+        $('#arm-left,#arm-right').addClass('animate-arms-right');
     },
     activateAccelerationMode: function (e) {
 
