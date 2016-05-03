@@ -30,15 +30,20 @@ var Scripty = {
 
         /* Swipe */
         //zepto has swipe and pinch
-        $('body').on('swipeLeft', self.animateArmsRight);
-        $('body').on('swipeRight', self.animateArmsLeft);
+        $('body')
+            .on('swipeLeft', self.animateArmsRight)
+            .on('swipeRight', self.animateArmsLeft);
 
 
         /* Image upload */
-
+        $('#avatar').on('change', function (e) {
+            self.uploadImage.call(self, e);
+        });
 
         /* Motion sensors */
-
+        $('#extreme').on(clickOrTap, function (e) {
+            self.activateAccelerationMode.call(self, e);
+        });
 
         /* Network API */
         if (navigator.onLine === false) {
@@ -51,10 +56,24 @@ var Scripty = {
     },
 
     uploadImage: function (e) {
-
+        var self = this;
+        console.log(e);
+        var file = e.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.addEventListener('load', function (e) {
+                self.writeToCanvas(event.target.result);
+            }, false);
+        }
     },
     writeToCanvas: function (picture) {
-
+        console.log(picture);
+        var img = new Image();
+        img.src = picture;
+        img.addEventListener('load', function (e) {
+            CanvasWriter.writeImage(img, 'avatar-output');
+            $('#bubble').addClass('show');
+        });
     },
     showBatteryCharge: function (battery) {
 
@@ -80,7 +99,14 @@ var Scripty = {
         $('#arm-left,#arm-right').removeClass('animate-arms-right').addClass('animate-arms-left');
     },
     activateAccelerationMode: function (e) {
+        e.preventDefault();
+        $('#bubblewrapper').css('display', 'none');
+        $('body').addClass('animate-extreme');
 
+        var self = this;
+        window.ondevicemotion = function (e) {
+            console.log('mooooove');
+        }
     },
     moveBot: function (direction) {
 
