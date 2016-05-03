@@ -74,10 +74,10 @@ var Scripty = {
         }
     },
     animateArmsRight: function () {
-        $('#arm-left,#arm-right').addClass('animate-arms-left');
+        $('#arm-left,#arm-right').removeClass('animate-arms-left').addClass('animate-arms-right');
     },
     animateArmsLeft: function () {
-        $('#arm-left,#arm-right').addClass('animate-arms-right');
+        $('#arm-left,#arm-right').removeClass('animate-arms-right').addClass('animate-arms-left');
     },
     activateAccelerationMode: function (e) {
 
